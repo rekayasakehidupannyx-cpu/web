@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil UMKM & Panel Admin - Keripik Singkong Maknyus Singosari</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* Presets Tema Warna */
+        :root {
+            --primary: #7A3E1D;
+            --primary-hover: #5D2E14;
+            --primary-light: #FAF6F0;
+            --primary-accent: #FEF3C7;
+            --primary-border: #FDE68A;
+            --primary-text: #78350F;
+        }
+
+        /* Preset 1: Amber Cokelat (Default) */
+        .theme-amber {
+            --primary: #7A3E1D;
+            --primary-hover: #5D2E14;
+            --primary-light: #FAF6F0;
+            --primary-accent: #FEF3C7;
+            --primary-border: #FDE68A;
+            --primary-text: #78350F;
+        }
+
+        /* Preset 2: Abu Modern (Elegan) */
+        .theme-abu {
+            --primary: #334155;
+            --primary-hover: #1E293B;
+            --primary-light: #F8FAFC;
+            --primary-accent: #E2E8F0;
+            --primary-border: #CBD5E1;
+            --primary-text: #0F172A;
+        }
+
+        /* Preset 3: Hijau Segar */
+        .theme-hijau {
+            --primary: #15803D;
+            --primary-hover: #166534;
+            --primary-light: #F0FDF4;
+            --primary-accent: #DCFCE7;
+            --primary-border: #BBF7D0;
+            --primary-text: #14532D;
+        }
+
+        /* Preset 4: Merah Cabai */
+        .theme-merah {
+            --primary: #B91C1C;
+            --primary-hover: #991B1B;
+            --primary-light: #FEF2F2;
+            --primary-accent: #FEE2E2;
+            --primary-border: #FECACA;
+            --primary-text: #7F1D1D;
+        }
+
+        /* Preset 5: Biru Khas */
+        .theme-biru {
+            --primary: #1D4ED8;
+            --primary-hover: #1E40AF;
+            --primary-light: #EFF6FF;
+            --primary-accent: #DBEAFE;
+            --primary-border: #BFDBFE;
+            --primary-text: #1E3A8A;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-light);
+            color: #2D3748;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .bg-dynamic-primary { background-color: var(--primary); }
+        .hover\:bg-dynamic-hover:hover { background-color: var(--primary-hover); }
+        .text-dynamic-primary { color: var(--primary); }
+        .border-dynamic-primary { border-color: var(--primary); }
+        .bg-dynamic-light { background-color: var(--primary-light); }
+        .bg-dynamic-accent { background-color: var(--primary-accent); }
+        .border-dynamic-border { border-color: var(--primary-border); }
+        .text-dynamic-dark { color: var(--primary-text); }
+
+        /* Custom Focus Ring untuk Tema Dinamis */
+        .focus-dynamic-ring:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+    </style>
+</head>
+<body class="theme-amber antialiased selection:bg-amber-100 selection:text-amber-900">
+
+    <!-- Header / Navigasi -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Teks Nama Usaha -->
+                <div class="flex items-center space-x-3">
+                    <img id="store-logo-display" src="https://placehold.co/100x100/7A3E1D/ffffff?text=Logo" alt="Logo Toko" class="w-10 h-10 rounded-full object-cover border border-amber-200 shadow-sm">
+                    <div>
+                        <span id="store-name-display" class="text-xl font-bold tracking-tight text-gray-900 block">Keripik Singkong Maknyus</span>
+                        <span id="store-location-display" class="text-xs text-dynamic-primary font-medium">Singosari, Malang</span>
+                    </div>
+                </div>
+
+                <!-- Menu Navigasi Desktop + Pilihan Tema + Tombol Owner -->
+                <nav class="hidden md:flex items-center space-x-6 font-medium">
+                    <a href="#beranda" class="text-gray-900 hover:text-dynamic-primary transition">Beranda</a>
+                    <a href="#tentang" class="text-gray-600 hover:text-dynamic-primary transition">Tentang</a>
+                    <a href="#produk" class="text-gray-600 hover:text-dynamic-primary transition">Produk</a>
+                    <a href="#kontak" class="text-gray-600 hover:text-dynamic-primary transition">Kontak</a>
+                    
+                    <!-- Vertical Custom Dropdown Select Theme -->
+                    <div class="relative inline-block text-left">
+                        <button id="theme-dropdown-btn" type="button" class="inline-flex items-center justify-between w-full rounded-xl border border-gray-200 shadow-sm px-3 py-1.5 bg-white text-xs font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span class="flex items-center space-x-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-dynamic-primary inline-block"></span>
+                                <span id="selected-theme-label">Tema Amber Cokelat</span>
+                            </span>
+                            <svg class="w-4 h-4 ml-2 -mr-0.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="theme-dropdown-menu" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-50">
+                            <div class="py-1" role="none">
+                                <button onclick="terapkanTema('theme-amber')" class="w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-[#7A3E1D] inline-block"></span>
+                                    <span>Amber Cokelat</span>
+                                </button>
+                                <button onclick="terapkanTema('theme-abu')" class="w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-[#334155] inline-block"></span>
+                                    <span>Abu Modern</span>
+                                </button>
+                                <button onclick="terapkanTema('theme-hijau')" class="w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-[#15803D] inline-block"></span>
+                                    <span>Hijau Segar</span>
+                                </button>
+                                <button onclick="terapkanTema('theme-merah')" class="w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-[#B91C1C] inline-block"></span>
+                                    <span>Merah Cabai</span>
+                                </button>
+                                <button onclick="terapkanTema('theme-biru')" class="w-full text-left px-4 py-2 text-xs text-gray-700 hover:bg-gray-100 flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-[#1D4ED8] inline-block"></span>
+                                    <span>Biru Khas</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Owner / Admin -->
+                    <button id="open-admin-btn" class="inline-flex items-center space-x-2 bg-dynamic-primary hover:bg-dynamic-hover text-white text-xs px-4 py-2 rounded-xl font-bold transition shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <span>🔒 Owner</span>
+                    </button>
+                </nav>
+
+                <!-- Tombol Menu Mobile / Hamburger -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <button id="open-admin-btn-mobile" class="p-2 bg-dynamic-primary text-white rounded-lg text-xs font-semibold flex items-center space-x-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <span>Owner</span>
+                    </button>
+                    <button id="menu-btn" aria-label="Buka Menu" class="p-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dropdown Menu Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-4 space-y-2">
+            <a href="#beranda" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Beranda</a>
+            <a href="#tentang" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Tentang</a>
+            <a href="#produk" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Produk</a>
+            <a href="#kontak" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Kontak</a>
+            <div class="pt-2 border-t border-gray-100">
+                <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Pilih Tema Website</label>
+                <select id="quick-theme-select-mobile" class="w-full bg-gray-100 p-2 rounded-xl text-xs font-semibold text-gray-800">
+                    <option value="theme-amber">🎨 Amber Cokelat</option>
+                    <option value="theme-abu">🎨 Abu Modern (Elegan)</option>
+                    <option value="theme-hijau">🎨 Hijau Segar</option>
+                    <option value="theme-merah">🎨 Merah Cabai</option>
+                    <option value="theme-biru">🎨 Biru Khas</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="beranda" class="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 bg-gradient-to-b from-white via-dynamic-light to-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6 text-center lg:text-left">
+                        <span id="hero-label-display" class="inline-block px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-dynamic-accent text-dynamic-dark border border-dynamic-border">
+                            Keripik rumahan khas Singosari
+                        </span>
+                        
+                        <h1 id="hero-title-display" class="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                            Keripik Singkong Maknyus Singosari
+                        </h1>
+                        
+                        <p id="hero-slogan-display" class="text-lg text-gray-600 max-w-xl mx-auto lg:mx-0">
+                            Renyahnya Bikin Nagih, Gurihnya Pas di Hati!
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
+                            <a id="hero-wa-btn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center px-6 py-3.5 border border-transparent text-base font-semibold rounded-xl text-white bg-dynamic-primary hover:bg-dynamic-hover shadow-lg transition transform hover:-translate-y-0.5">
+                                Pesan via WhatsApp
+                            </a>
+                            <a href="#produk" class="inline-flex justify-center items-center px-6 py-3.5 border border-gray-300 text-base font-semibold rounded-xl text-gray-800 bg-white hover:bg-gray-50 shadow-sm transition">
+                                Lihat Produk
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="relative flex justify-center">
+                        <div class="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl border-4 border-white ring-4 ring-gray-100">
+                            <img id="hero-display-img" src="https://images.unsplash.com/photo-1599490659213-e2b9527bd087?auto=format&fit=crop&w=800&q=80" alt="Foto utama Keripik Singkong Maknyus" class="w-full h-80 sm:h-96 object-cover transform hover:scale-105 transition duration-500">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-gray-900">Fakta Utama Usaha</h3>
+                </div>
+                <div id="fakta-singkat-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Dirender via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section id="tentang" class="py-16 md:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Tentang Usaha Kami</h2>
+                    <p class="mt-4 text-lg text-gray-600">Mengenal lebih dekat sejarah dan keunggulan produk kami.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Cerita Singkat Usaha</h3>
+                        <p id="cerita-usaha-display" class="text-gray-600 leading-relaxed text-base">
+                            Keripik Singkong Maknyus dibuat dari singkong pilihan hasil tani lokal Singosari dengan resep turun-temurun. Kami mengutamakan kebersihan dan rasa gurih alami di setiap gigitannya untuk kepuasan pelanggan setia.
+                        </p>
+                        <div class="bg-dynamic-accent p-6 rounded-2xl border border-dynamic-border grid grid-cols-3 gap-4 text-center">
+                            <div>
+                                <span id="stat-tahun-display" class="block text-2xl font-extrabold text-dynamic-dark">2018</span>
+                                <span class="text-xs text-dynamic-dark font-medium">Tahun Berdiri</span>
+                            </div>
+                            <div>
+                                <span id="stat-pemilik-display" class="block text-2xl font-extrabold text-dynamic-dark">Ibu Siti</span>
+                                <span class="text-xs text-dynamic-dark font-medium">Pemilik</span>
+                            </div>
+                            <div>
+                                <span id="stat-karyawan-display" class="block text-2xl font-extrabold text-dynamic-dark">5 Orang</span>
+                                <span class="text-xs text-dynamic-dark font-medium">Karyawan</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Keunggulan Kami</h3>
+                        <div id="keunggulan-list-display" class="space-y-4">
+                            <!-- Renderean dari JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="produk" class="py-16 md:py-24 bg-gray-50/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Produk Pilihan Kami</h2>
+                    <p class="mt-4 text-lg text-gray-600">Pilih varian rasa keripik kesukaan Anda.</p>
+                </div>
+
+                <!-- Grid Kartu Produk -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Ditampilkan secara dinamis melalui JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section id="kontak" class="py-16 md:py-24 bg-white border-t border-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Kontak dan Lokasi</h2>
+                    <p class="mt-4 text-lg text-gray-600">Kunjungi tempat produksi kami atau hubungi melalui WhatsApp.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="space-y-8 bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Informasi Usaha</h3>
+                            <p class="text-gray-700">Alamat: <span id="display-alamat" class="font-medium">Jl. Raya Singosari No. 45, Malang, Jawa Timur</span></p>
+                            <p class="text-gray-700 mt-1">WhatsApp: <span id="display-wa" class="font-semibold text-dynamic-primary">0812-3456-7890</span></p>
+                            <p class="text-gray-700 mt-1">Media Sosial: <span id="display-medsos" class="font-medium">@keripiksingkongsingosari</span></p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-3">Jam Buka</h4>
+                            <div class="bg-gray-50 rounded-xl overflow-hidden border border-gray-200 text-sm shadow-sm">
+                                <div class="flex justify-between px-4 py-3 border-b border-gray-200">
+                                    <span class="text-gray-600">Senin - Sabtu</span>
+                                    <span id="display-jambuka-senin" class="font-semibold text-gray-900">08.00 - 17.00 WIB</span>
+                                </div>
+                                <div class="flex justify-between px-4 py-3 bg-gray-50">
+                                    <span class="text-gray-600">Minggu</span>
+                                    <span id="display-jambuka-minggu" class="font-semibold text-rose-600">Tutup</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <a id="contact-wa-btn" href="#" target="_blank" rel="noopener noreferrer" class="w-full inline-flex justify-center items-center px-6 py-3.5 bg-dynamic-primary hover:bg-dynamic-hover text-white font-semibold rounded-xl shadow-md transition">
+                                Chat WhatsApp Sekarang
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Peta Lokasi</h3>
+                            <div class="w-full h-80 rounded-2xl overflow-hidden shadow-inner border border-gray-200 bg-gray-100 flex items-center justify-center">
+                                <iframe id="display-maps-iframe" class="w-full h-full border-0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.548074987216!2d112.6578!3d-7.8856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNTMnMguMiJTID11MsKwMzknMjguMSJF!5e0!3m2!1sid!2sid!4v1600000000000!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <div>
+                            <a id="display-maps-link" href="https://maps.google.com/?q=Singosari+Malang" target="_blank" rel="noopener noreferrer" class="w-full inline-flex justify-center items-center px-6 py-3.5 border border-gray-300 bg-white hover:bg-gray-50 text-gray-800 font-semibold rounded-xl shadow-sm transition">
+                                Buka di Google Maps
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Panel Kelola Website (Admin Panel) -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-gray-100 p-6 sm:p-8 relative">
+            
+            <!-- Tombol Close Modal -->
+            <button id="close-admin-btn" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-gray-100">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <!-- Judul Modal -->
+            <div class="flex items-center space-x-2 border-b border-gray-100 pb-4 mb-6">
+                <svg class="w-7 h-7 text-dynamic-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                <h3 class="text-2xl font-extrabold text-gray-900">Panel Kelola Website</h3>
+            </div>
+
+            <!-- PIN Auth Box (Login Admin) -->
+            <div id="admin-auth-box" class="space-y-4 py-6">
+                <div class="p-4 bg-dynamic-accent rounded-2xl border border-dynamic-border">
+                    <p class="text-sm font-semibold text-dynamic-dark">Masukkan Password Owner untuk Mengakses Panel Admin</p>
+                    <p class="text-xs text-dynamic-dark/80 mt-1">Default PIN: <strong>1234</strong> (Dapat Anda ubah nanti di tab Identitas & Password)</p>
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-gray-700 uppercase">Password Owner</label>
+                    <div class="flex space-x-2">
+                        <input type="password" id="admin-pin-input" placeholder="Masukkan Password (Default: 1234)" class="flex-1 px-4 py-3 rounded-xl border border-gray-300 focus-dynamic-ring text-sm">
+                        <button id="admin-login-btn" class="bg-dynamic-primary hover:bg-dynamic-hover text-white px-6 py-3 rounded-xl font-bold text-sm shadow-md transition">Masuk</button>
+                    </div>
+                </div>
+                <p id="pin-error-msg" class="text-xs text-rose-600 font-semibold hidden">❌ Password Salah! Silakan coba lagi.</p>
+            </div>
+
+            <!-- Admin Content Box (Tabbed Interface sesuai Gambar) -->
+            <div id="admin-content-box" class="hidden space-y-6">
+                
+                <!-- Tab Navigasi Horizontal Baru (Desain Lebih Modern & Minimalis) -->
+                <div class="border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-2 sm:space-x-4 overflow-x-auto pb-2 scrollbar-none" aria-label="Tabs">
+                        <button id="tab-identitas-btn" class="admin-tab-btn flex items-center space-x-2 whitespace-nowrap py-2.5 px-3.5 border-b-2 font-semibold text-xs rounded-t-xl transition-all border-dynamic-primary text-dynamic-primary bg-dynamic-accent">
+                            <svg class="w-4 h-4 text-dynamic-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h3"></path></svg>
+                            <span>Identitas & Password</span>
+                        </button>
+                        <button id="tab-hero-btn" class="admin-tab-btn flex items-center space-x-2 whitespace-nowrap py-2.5 px-3.5 border-b-2 font-semibold text-xs rounded-t-xl transition-all border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span>Foto & Logo</span>
+                        </button>
+                        <button id="tab-fakta-btn" class="admin-tab-btn flex items-center space-x-2 whitespace-nowrap py-2.5 px-3.5 border-b-2 font-semibold text-xs rounded-t-xl transition-all border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                            <span>Beranda & Fakta</span>
+                        </button>
+                        <button id="tab-cerita-btn" class="admin-tab-btn flex items-center space-x-2 whitespace-nowrap py-2.5 px-3.5 border-b-2 font-semibold text-xs rounded-t-xl transition-all border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Tentang Usaha</span>
+                        </button>
+                        <button id="tab-kontak-btn" class="admin-tab-btn flex items-center space-x-2 whitespace-nowrap py-2.5 px-3.5 border-b-2 font-semibold text-xs rounded-t-xl transition-all border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span>Kontak & Jam</span>
+                        </button>
+                        <button id="tab-produk-btn" class="admin-tab-btn flex items-center space-x-2 whitespace-nowrap py-2.5 px-3.5 border-b-2 font-semibold text-xs rounded-t-xl transition-all border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                            <span>Kelola Produk</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <form id="form-identitas-password" class="space-y-5">
+                    <div class="flex items-center space-x-2 text-dynamic-primary font-bold border-b border-gray-100 pb-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        <h4 class="text-base">Identitas Usaha & Akses Password</h4>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Nama Usaha / Logo Teks</label>
+                            <input type="text" id="admin-input-nama-usaha" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Label Kecil (di atas Judul)</label>
+                            <input type="text" id="admin-input-label-kecil" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Ganti Password Owner</label>
+                            <input type="password" id="admin-input-password-baru" placeholder="Sandi baru..." class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                            <p class="text-[11px] text-gray-500 mt-1">Kata sandi baru untuk masuk ke panel ini.</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Pilih Tema Warna Default Website</label>
+                            <select id="admin-input-tema-default" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus-dynamic-ring bg-white">
+                                <option value="theme-amber">Tema Amber Cokelat (Default)</option>
+                                <option value="theme-abu">Tema Abu Modern (Elegan)</option>
+                                <option value="theme-hijau">Tema Hijau Segar</option>
+                                <option value="theme-merah">Tema Merah Cabai</option>
+                                <option value="theme-biru">Tema Biru Khas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Slogan / Deskripsi Singkat Beranda</label>
+                        <textarea id="admin-input-slogan" rows="3" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus-dynamic-ring"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 bg-dynamic-primary hover:bg-dynamic-hover text-white rounded-xl font-bold text-sm shadow-md transition flex items-center justify-center space-x-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                        <span>Simpan Identitas Usaha & Sandi</span>
+                    </button>
+                </form>
+
+                <!-- TAB 2: Foto Utama & Logo Toko -->
+                <form id="form-foto-logo" class="space-y-4 hidden">
+                    <h4 class="text-base font-bold text-dynamic-primary border-b border-gray-100 pb-2">Foto Utama & Logo Toko</h4>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Lokasi Usaha (Header)</label>
+                        <input type="text" id="admin-input-lokasi" class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-gray-700 uppercase">Foto Sampul Beranda</label>
+                        <input type="file" id="hero-file-input" accept="image/*" class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-dynamic-accent file:text-dynamic-dark">
+                        <input type="url" id="hero-url-input" placeholder="Atau paste link foto beranda..." class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                    </div>
+                    <div class="space-y-2 pt-2">
+                        <label class="block text-xs font-bold text-gray-700 uppercase">Logo Toko (Header)</label>
+                        <input type="file" id="logo-file-input" accept="image/*" class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-dynamic-accent file:text-dynamic-dark">
+                        <input type="url" id="logo-url-input" placeholder="Atau paste link logo..." class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-dynamic-primary hover:bg-dynamic-hover text-white rounded-xl font-bold text-sm shadow-md">Simpan Foto & Logo</button>
+                </form>
+
+                <!-- TAB 3: Form Beranda & 3 Fakta -->
+                <form id="form-beranda-fakta" class="space-y-4 hidden">
+                    <h4 class="text-base font-bold text-dynamic-primary border-b border-gray-100 pb-2">Edit 3 Poin Fakta Utama</h4>
+                    <div id="admin-fakta-inputs" class="space-y-3">
+                        <!-- Populated via JS -->
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-dynamic-primary hover:bg-dynamic-hover text-white rounded-xl font-bold text-sm shadow-md">Simpan Poin Fakta</button>
+                </form>
+
+                <!-- TAB 4: Form Tentang Usaha -->
+                <form id="form-tentang-usaha" class="space-y-4 hidden">
+                    <h4 class="text-base font-bold text-dynamic-primary border-b border-gray-100 pb-2">Edit Cerita Tentang Usaha</h4>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Paragraf Cerita Singkat</label>
+                        <textarea id="admin-cerita-teks" rows="4" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus-dynamic-ring"></textarea>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Tahun Berdiri</label>
+                            <input type="text" id="admin-stat-tahun" class="w-full px-3 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Nama Pemilik</label>
+                            <input type="text" id="admin-stat-pemilik" class="w-full px-3 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Jumlah Karyawan</label>
+                            <input type="text" id="admin-stat-karyawan" class="w-full px-3 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-dynamic-primary hover:bg-dynamic-hover text-white rounded-xl font-bold text-sm shadow-md">Simpan Tentang Usaha</button>
+                </form>
+
+                <!-- TAB 5: Form Kontak & Jam Buka -->
+                <form id="form-kontak-jam" class="space-y-4 hidden">
+                    <h4 class="text-base font-bold text-dynamic-primary border-b border-gray-100 pb-2">Edit Informasi Kontak & Jam Operational</h4>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Alamat Lengkap Usaha</label>
+                        <input type="text" id="admin-alamat" class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Nomor WhatsApp</label>
+                            <input type="text" id="admin-wa" class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Media Sosial</label>
+                            <input type="text" id="admin-medsos" class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Jam Buka (Senin - Sabtu)</label>
+                            <input type="text" id="admin-jambuka-senin" class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Jam Buka (Minggu)</label>
+                            <input type="text" id="admin-jambuka-minggu" class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">URL Google Maps</label>
+                        <input type="url" id="admin-maps-url" class="w-full px-3.5 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-dynamic-primary hover:bg-dynamic-hover text-white rounded-xl font-bold text-sm shadow-md">Simpan Informasi Kontak</button>
+                </form>
+
+                <!-- TAB 6: Form Kelola Produk -->
+                <div id="form-kelola-produk" class="space-y-4 hidden">
+                    <h4 class="text-base font-bold text-dynamic-primary border-b border-gray-100 pb-2">Kelola Daftar Varian Produk</h4>
+                    <div id="admin-product-list" class="space-y-3">
+                        <!-- Populated via JS -->
+                    </div>
+                    <button type="button" id="open-add-new-prod-btn" class="w-full py-2.5 border-2 border-dashed border-dynamic-border text-dynamic-dark hover:bg-dynamic-accent rounded-2xl font-bold text-xs transition flex items-center justify-center space-x-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        <span>+ Tambah Produk Baru</span>
+                    </button>
+
+                    <!-- Form Tambah / Edit Produk Sub-section -->
+                    <form id="upload-product-form" class="space-y-3 hidden border-t border-gray-200 pt-4 bg-dynamic-light p-4 rounded-2xl border border-dynamic-border">
+                        <input type="hidden" id="prod-edit-id" value="">
+                        <div id="edit-indicator" class="p-2.5 bg-dynamic-accent rounded-xl flex justify-between items-center text-xs text-dynamic-dark font-semibold">
+                            <span>Sedang mengedit: <strong id="edit-prod-title"></strong></span>
+                            <button type="button" id="cancel-edit-btn" class="underline font-bold text-rose-600">Batal Edit</button>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Nama Produk</label>
+                            <input type="text" id="prod-name" required class="w-full px-3 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Berat / Isi</label>
+                                <input type="text" id="prod-weight" required class="w-full px-3 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Harga</label>
+                                <input type="text" id="prod-price" required class="w-full px-3 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Deskripsi Singkat</label>
+                            <textarea id="prod-desc" rows="2" required class="w-full px-3 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring"></textarea>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-gray-700 uppercase">Foto Produk</label>
+                            <input type="file" id="prod-file-input" accept="image/*" class="w-full text-xs text-gray-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:bg-dynamic-accent file:text-dynamic-dark">
+                            <input type="url" id="prod-url-input" placeholder="https://..." class="w-full px-3 py-2 rounded-xl border border-gray-300 text-sm focus-dynamic-ring">
+                        </div>
+                        <button type="submit" id="submit-prod-btn" class="w-full py-2.5 bg-dynamic-primary hover:bg-dynamic-hover text-white rounded-xl font-bold text-sm transition">Simpan Perubahan Produk</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Modal Confirm & Notifications -->
+    <div id="custom-toast" class="fixed top-6 right-6 z-50 transform translate-x-full opacity-0 transition-all duration-300 max-w-sm bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 border border-slate-800">
+        <svg class="w-6 h-6 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <span id="toast-msg" class="text-sm font-medium">Berhasil menyimpan perubahan!</span>
+    </div>
+
+    <div id="custom-confirm-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl border border-gray-100">
+            <h3 id="confirm-title" class="text-xl font-bold text-gray-900">Konfirmasi Tindakan</h3>
+            <p id="confirm-text" class="text-sm text-gray-600">Apakah Anda yakin ingin melanjutkan tindakan ini?</p>
+            <div class="flex space-x-3 pt-2">
+                <button id="confirm-cancel-btn" class="flex-1 py-2.5 border border-gray-300 text-gray-700 rounded-xl font-semibold text-sm hover:bg-gray-50 transition">Batal</button>
+                <button id="confirm-yes-btn" class="flex-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-semibold text-sm transition shadow-md">Ya, Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <p class="text-sm text-slate-400">
+                © 2026 <span id="footer-store-name">Keripik Singkong Maknyus</span> · Panel Kelola Admin UMKM Khas Malang.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Tombol WhatsApp Melayang -->
+    <a id="floating-wa-btn" href="#" target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp" class="fixed bottom-6 right-6 z-40 bg-emerald-600 hover:bg-emerald-700 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition transform hover:scale-110">
+        <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        </svg>
+    </a>
+
+    <script>
+        // Data Sistem Utama & Password Owner
+        let currentAdminPIN = localStorage.getItem('umkm_admin_pin') || "1234";
+        let currentTheme = localStorage.getItem('umkm_theme') || "theme-amber";
+
+        const themeLabels = {
+            'theme-amber': 'Amber Cokelat',
+            'theme-abu': 'Abu Modern',
+            'theme-hijau': 'Hijau Segar',
+            'theme-merah': 'Merah Cabai',
+            'theme-biru': 'Biru Khas'
+        };
+
+        // Menerapkan Tema Warna ke Body & Dropdown Label
+        function terapkanTema(namaTema) {
+            document.body.className = `${namaTema} antialiased selection:bg-amber-100 selection:text-amber-900`;
+            currentTheme = namaTema;
+            localStorage.setItem('umkm_theme', namaTema);
+
+            const selectAdmin = document.getElementById("admin-input-tema-default");
+            const dropdownLabel = document.getElementById("selected-theme-label");
+
+            if(selectAdmin) selectAdmin.value = namaTema;
+            if(dropdownLabel && themeLabels[namaTema]) dropdownLabel.innerText = themeLabels[namaTema];
+
+            const dropdownMenu = document.getElementById("theme-dropdown-menu");
+            if(dropdownMenu) dropdownMenu.classList.add("hidden");
+        }
+
+        // Dropdown Toggle Handlers
+        document.addEventListener("DOMContentLoaded", function () {
+            const themeBtn = document.getElementById("theme-dropdown-btn");
+            const themeMenu = document.getElementById("theme-dropdown-menu");
+
+            if (themeBtn && themeMenu) {
+                themeBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    themeMenu.classList.toggle("hidden");
+                });
+
+                document.addEventListener("click", (e) => {
+                    if (!themeBtn.contains(e.target) && !themeMenu.contains(e.target)) {
+                        themeMenu.classList.add("hidden");
+                    }
+                });
+            }
+        });
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById("custom-toast");
+            document.getElementById("toast-msg").innerText = message;
+            toast.classList.remove("translate-x-full", "opacity-0");
+            setTimeout(() => {
+                toast.classList.add("translate-x-full", "opacity-0");
+            }, 3000);
+        }
+
+        // Custom Confirm Modal
+        let confirmCallback = null;
+        function showCustomConfirm(title, text, callback) {
+            document.getElementById("confirm-title").innerText = title;
+            document.getElementById("confirm-text").innerText = text;
+            confirmCallback = callback;
+            document.getElementById("custom-confirm-modal").classList.remove("hidden");
+        }
+
+        document.getElementById("confirm-cancel-btn").addEventListener("click", () => {
+            document.getElementById("custom-confirm-modal").classList.add("hidden");
+            confirmCallback = null;
+        });
+
+        document.getElementById("confirm-yes-btn").addEventListener("click", () => {
+            document.getElementById("custom-confirm-modal").classList.add("hidden");
+            if(confirmCallback) confirmCallback();
+            confirmCallback = null;
+        });
+
+        // Helper untuk Tautan WhatsApp
+        function buatTautanWA(pesan) {
+            const noWA = (kontakUsaha.wa || '081234567890').replace(/[^0-9]/g, '');
+            return `https://wa.me/${noWA}?text=${encodeURIComponent(pesan)}`;
+        }
+
+        // Data Identitas Utama
+        const defaultIdentitas = {
+            namaUsaha: "Keripik Singkong Maknyus",
+            labelKecil: "Keripik rumahan khas Singosari",
+            slogan: "Renyahnya Bikin Nagih, Gurihnya Pas di Hati!",
+            lokasi: "Singosari, Malang",
+            logoUrl: "https://images.unsplash.com/photo-1599490659213-e2b9527bd087?auto=format&fit=crop&w=200&h=200&q=80"
+        };
+        let identitasUsaha = JSON.parse(localStorage.getItem('umkm_identitas')) || defaultIdentitas;
+
+        function renderIdentitasUsaha() {
+            document.getElementById("store-name-display").innerText = identitasUsaha.namaUsaha;
+            if(document.getElementById("footer-store-name")) document.getElementById("footer-store-name").innerText = identitasUsaha.namaUsaha;
+            document.getElementById("hero-title-display").innerText = identitasUsaha.namaUsaha;
+            document.getElementById("hero-label-display").innerText = identitasUsaha.labelKecil;
+            document.getElementById("hero-slogan-display").innerText = identitasUsaha.slogan;
+            document.getElementById("store-location-display").innerText = identitasUsaha.lokasi;
+            document.getElementById("store-logo-display").src = identitasUsaha.logoUrl;
+
+            // Form Admin Values
+            document.getElementById("admin-input-nama-usaha").value = identitasUsaha.namaUsaha;
+            document.getElementById("admin-input-label-kecil").value = identitasUsaha.labelKecil;
+            document.getElementById("admin-input-slogan").value = identitasUsaha.slogan;
+            document.getElementById("admin-input-lokasi").value = identitasUsaha.lokasi;
+        }
+
+        // Data Kontak Usaha
+        const defaultKontak = {
+            alamat: "Jl. Raya Singosari No. 45, Malang, Jawa Timur",
+            wa: "0812-3456-7890",
+            medsos: "@keripiksingkongsingosari",
+            jamSenin: "08.00 - 17.00 WIB",
+            jamMinggu: "Tutup",
+            mapsUrl: "https://maps.google.com/?q=Singosari+Malang"
+        };
+        let kontakUsaha = JSON.parse(localStorage.getItem('umkm_kontak')) || defaultKontak;
+
+        function renderKontakUsaha() {
+            document.getElementById("display-alamat").innerText = kontakUsaha.alamat;
+            document.getElementById("display-wa").innerText = kontakUsaha.wa;
+            document.getElementById("display-medsos").innerText = kontakUsaha.medsos;
+            document.getElementById("display-jambuka-senin").innerText = kontakUsaha.jamSenin;
+            document.getElementById("display-jambuka-minggu").innerText = kontakUsaha.jamMinggu;
+
+            const linkWA = buatTautanWA("Halo Kak, saya ingin bertanya mengenai produk Keripik Singkong Maknyus.");
+            document.getElementById("contact-wa-btn").href = linkWA;
+            document.getElementById("hero-wa-btn").href = linkWA;
+            document.getElementById("floating-wa-btn").href = linkWA;
+
+            if (kontakUsaha.mapsUrl) {
+                document.getElementById("display-maps-link").href = kontakUsaha.mapsUrl;
+            }
+
+            if (document.getElementById("admin-alamat")) document.getElementById("admin-alamat").value = kontakUsaha.alamat;
+            if (document.getElementById("admin-wa")) document.getElementById("admin-wa").value = kontakUsaha.wa;
+            if (document.getElementById("admin-medsos")) document.getElementById("admin-medsos").value = kontakUsaha.medsos;
+            if (document.getElementById("admin-jambuka-senin")) document.getElementById("admin-jambuka-senin").value = kontakUsaha.jamSenin;
+            if (document.getElementById("admin-jambuka-minggu")) document.getElementById("admin-jambuka-minggu").value = kontakUsaha.jamMinggu;
+            if (document.getElementById("admin-maps-url")) document.getElementById("admin-maps-url").value = kontakUsaha.mapsUrl;
+        }
+
+        // Data Cerita Usaha
+        const defaultCerita = {
+            teks: "Keripik Singkong Maknyus dibuat dari singkong pilihan hasil tani lokal Singosari dengan resep turun-temurun. Kami mengutamakan kebersihan dan rasa gurih alami di setiap gigitannya untuk kepuasan pelanggan setia.",
+            tahun: "2018",
+            pemilik: "Ibu Siti",
+            karyawan: "5 Orang"
+        };
+        let ceritaUsaha = JSON.parse(localStorage.getItem('umkm_cerita')) || defaultCerita;
+
+        function renderCeritaUsaha() {
+            document.getElementById("cerita-usaha-display").innerText = ceritaUsaha.teks;
+            document.getElementById("stat-tahun-display").innerText = ceritaUsaha.tahun;
+            document.getElementById("stat-pemilik-display").innerText = ceritaUsaha.pemilik;
+            document.getElementById("stat-karyawan-display").innerText = ceritaUsaha.karyawan;
+
+            if (document.getElementById("admin-cerita-teks")) document.getElementById("admin-cerita-teks").value = ceritaUsaha.teks;
+            if (document.getElementById("admin-stat-tahun")) document.getElementById("admin-stat-tahun").value = ceritaUsaha.tahun;
+            if (document.getElementById("admin-stat-pemilik")) document.getElementById("admin-stat-pemilik").value = ceritaUsaha.pemilik;
+            if (document.getElementById("admin-stat-karyawan")) document.getElementById("admin-stat-karyawan").value = ceritaUsaha.karyawan;
+        }
+
+        // Data 3 Fakta Utama
+        const defaultFakta = [
+            { id: 1, judul: "100% Singkong Lokal", deskripsi: "Bahan baku segar dari petani lokal Singosari." },
+            { id: 2, judul: "Tanpa Pengawet Buatan", deskripsi: "Olahan alami dan renyah tahan lama secara higienis." },
+            { id: 3, judul: "Rasa Otentik", deskripsi: "Resep khas warisan bumbu rempah pilihan." }
+        ];
+        let faktaList = JSON.parse(localStorage.getItem('umkm_fakta')) || defaultFakta;
+
+        function renderFakta() {
+            const container = document.getElementById("fakta-singkat-container");
+            if (!container) return;
+            container.innerHTML = "";
+
+            faktaList.forEach(f => {
+                const elem = document.createElement("div");
+                elem.className = "p-5 rounded-2xl bg-white border border-gray-200 shadow-sm";
+                elem.innerHTML = `
+                    <h4 class="font-bold text-gray-900 text-base mb-1">${f.judul}</h4>
+                    <p class="text-sm text-gray-600">${f.deskripsi}</p>
+                `;
+                container.appendChild(elem);
+            });
+
+            const adminInputs = document.getElementById("admin-fakta-inputs");
+            if (adminInputs) {
+                adminInputs.innerHTML = "";
+                faktaList.forEach(f => {
+                    const div = document.createElement("div");
+                    div.className = "p-3.5 bg-gray-50 rounded-2xl border border-gray-200 space-y-2";
+                    div.innerHTML = `
+                        <p class="font-bold text-gray-900 text-xs">Poin Fakta ${f.id}</p>
+                        <input type="text" id="fakta-judul-${f.id}" value="${f.judul}" class="w-full px-3 py-1.5 rounded-xl border border-gray-300 text-sm">
+                        <textarea id="fakta-desc-${f.id}" rows="2" class="w-full px-3 py-1.5 rounded-xl border border-gray-300 text-sm">${f.deskripsi}</textarea>
+                    `;
+                    adminInputs.appendChild(div);
+                });
+            }
+        }
+
+        // Data Keunggulan
+        const defaultKeunggulan = [
+            { id: 1, judul: "Singkong segar pilihan petani lokal", deskripsi: "Dipetik langsung dari lahan petani terbaik di kawasan Singosari." },
+            { id: 2, judul: "Bumbu rempah tradisional berkualitas", deskripsi: "Menggunakan racikan rempah murni tanpa bahan kimia tambahan." },
+            { id: 3, judul: "Proses higienis dan terjamin", deskripsi: "Dibuat dengan standar kebersihan tinggi untuk menjaga kualitas produk." }
+        ];
+        let keunggulanList = JSON.parse(localStorage.getItem('umkm_keunggulan')) || defaultKeunggulan;
+
+        function renderKeunggulan() {
+            const container = document.getElementById("keunggulan-list-display");
+            if (!container) return;
+            container.innerHTML = "";
+
+            keunggulanList.forEach((item, index) => {
+                const elem = document.createElement("div");
+                elem.className = "flex items-start space-x-4 p-4 rounded-xl bg-dynamic-light border border-dynamic-border";
+                elem.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-dynamic-primary text-white flex items-center justify-center font-bold flex-shrink-0 text-sm">${index + 1}</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900">${item.judul}</h4>
+                        <p class="text-sm text-gray-600 mt-0.5">${item.deskripsi}</p>
+                    </div>
+                `;
+                container.appendChild(elem);
+            });
+        }
+
+        // Data Produk dengan Foto Gaya PAP / Realistis
+        const defaultProduk = [
+            {
+                id: 1,
+                nama: "Keripik Singkong Original",
+                berat: "250 gram",
+                harga: "Rp 12.000",
+                deskripsi: "Rasa gurih klasik dengan garam pilihan yang renyah dan nikmat.",
+                foto: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 2,
+                nama: "Keripik Singkong Pedas Manis",
+                berat: "250 gram",
+                harga: "Rp 14.000",
+                deskripsi: "Perpaduan cabai segar dan gula jawa asli yang menggugah selera.",
+                foto: "https://images.unsplash.com/photo-1528751014936-863e6e7a319c?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 3,
+                nama: "Keripik Singkong Balado",
+                berat: "250 gram",
+                harga: "Rp 14.000",
+                deskripsi: "Bumbu balado khas Nusantara dengan sensasi pedas nendang.",
+                foto: "https://images.unsplash.com/photo-1621447504864-d8686e12698c?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        let produkList = JSON.parse(localStorage.getItem('umkm_produk')) || defaultProduk;
+
+        function renderProduk() {
+            const productGrid = document.getElementById("product-grid");
+            if(!productGrid) return;
+            productGrid.innerHTML = "";
+
+            produkList.forEach(function (p) {
+                const pesanProduk = `Halo Kak, saya ingin memesan ${p.nama} (${p.berat}) seharga ${p.harga}.`;
+                const linkWA = buatTautanWA(pesanProduk);
+
+                const card = document.createElement("div");
+                card.className = "bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition border border-gray-200 flex flex-col justify-between";
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="relative h-48 overflow-hidden bg-gray-100">
+                            <img src="${p.foto}" onerror="this.src='https://images.unsplash.com/photo-1599490659213-e2b9527bd087?auto=format&fit=crop&w=600&q=80'" alt="${p.nama}" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-bold text-gray-900 text-lg">${p.nama}</h3>
+                                <span class="text-xs font-semibold px-2.5 py-1 bg-dynamic-accent text-dynamic-dark rounded-full">${p.berat}</span>
+                            </div>
+                            <p class="text-sm text-gray-600 line-clamp-2">${p.deskripsi}</p>
+                            <div class="text-lg font-extrabold text-dynamic-primary pt-1">${p.harga}</div>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 flex space-x-2">
+                        <a href="${linkWA}" target="_blank" rel="noopener noreferrer" class="flex-1 inline-flex justify-center items-center px-4 py-2.5 bg-dynamic-primary hover:bg-dynamic-hover text-white font-semibold rounded-xl text-sm transition shadow-sm">
+                            Pesan
+                        </a>
+                        <button onclick="bukaEditProduk(${p.id})" class="p-2.5 text-dynamic-primary hover:bg-dynamic-accent border border-dynamic-border rounded-xl transition" title="Edit Produk">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                        </button>
+                        <button onclick="konfirmasiHapusProduk(${p.id})" class="p-2.5 text-rose-600 hover:bg-rose-50 border border-rose-200 rounded-xl transition" title="Hapus Produk">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                `;
+                productGrid.appendChild(card);
+            });
+
+            renderAdminProductList();
+        }
+
+        function renderAdminProductList() {
+            const adminListContainer = document.getElementById("admin-product-list");
+            if (!adminListContainer) return;
+            adminListContainer.innerHTML = "";
+
+            produkList.forEach(p => {
+                const item = document.createElement("div");
+                item.className = "flex items-center justify-between p-3.5 bg-dynamic-light border border-dynamic-border rounded-2xl shadow-sm transition";
+
+                item.innerHTML = `
+                    <div class="flex items-center space-x-3 sm:space-x-4 min-w-0">
+                        <div class="w-12 h-12 rounded-xl bg-dynamic-primary text-white font-bold text-xs flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            <img src="${p.foto}" alt="${p.nama}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="min-w-0">
+                            <h5 class="font-bold text-gray-900 text-sm truncate">${p.nama}</h5>
+                            <p class="text-xs text-gray-600">${p.berat} · <span class="text-dynamic-primary font-bold">${p.harga}</span></p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-1.5 flex-shrink-0 ml-2">
+                        <button onclick="bukaEditProduk(${p.id})" class="px-3 py-1.5 bg-dynamic-accent hover:bg-dynamic-border text-dynamic-dark font-bold text-xs rounded-xl transition">
+                            Edit
+                        </button>
+                        <button onclick="konfirmasiHapusProduk(${p.id})" class="p-1.5 text-rose-600 hover:bg-rose-50 rounded-xl transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                `;
+                adminListContainer.appendChild(item);
+            });
+        }
+
+        function bukaEditProduk(id) {
+            const target = produkList.find(p => p.id === id);
+            if(!target) return;
+
+            document.getElementById("admin-modal").classList.remove("hidden");
+            document.getElementById("admin-auth-box").classList.add("hidden");
+            document.getElementById("admin-content-box").classList.remove("hidden");
+
+            // Buka Tab Kelola Produk
+            switchAdminTab('tab-produk-btn', 'form-kelola-produk');
+
+            const uploadForm = document.getElementById("upload-product-form");
+            uploadForm.classList.remove("hidden");
+            document.getElementById("prod-edit-id").value = target.id;
+            document.getElementById("prod-name").value = target.nama;
+            document.getElementById("prod-weight").value = target.berat;
+            document.getElementById("prod-price").value = target.harga;
+            document.getElementById("prod-desc").value = target.deskripsi;
+            document.getElementById("edit-prod-title").innerText = target.nama;
+            document.getElementById("edit-indicator").classList.remove("hidden");
+            document.getElementById("submit-prod-btn").innerText = "Simpan Perubahan Produk";
+
+            // Scroll otomatis ke formulir edit produk
+            setTimeout(() => {
+                uploadForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        function konfirmasiHapusProduk(id) {
+            showCustomConfirm("Hapus Produk", "Apakah Anda yakin ingin menghapus produk ini dari daftar?", () => {
+                produkList = produkList.filter(p => p.id !== id);
+                localStorage.setItem('umkm_produk', JSON.stringify(produkList));
+                renderProduk();
+                showToast("Produk berhasil dihapus!");
+            });
+        }
+
+        // Tab Navigation Admin Panel
+        function switchAdminTab(activeBtnId, activeFormId) {
+            const tabs = ['tab-identitas-btn', 'tab-hero-btn', 'tab-fakta-btn', 'tab-cerita-btn', 'tab-kontak-btn', 'tab-produk-btn'];
+            const forms = ['form-identitas-password', 'form-foto-logo', 'form-beranda-fakta', 'form-tentang-usaha', 'form-kontak-jam', 'form-kelola-produk'];
+
+            forms.forEach(fId => {
+                const el = document.getElementById(fId);
+                if(el) el.classList.add("hidden");
+            });
+
+            tabs.forEach(tId => {
+                const el = document.getElementById(tId);
+                if(el) el.className = "admin-tab-btn flex items-center space-x-2 whitespace-nowrap py-2.5 px-3.5 border-b-2 font-semibold text-xs rounded-t-xl transition-all border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300";
+            });
+
+            const currentActiveBtn = document.getElementById(activeBtnId);
+            const currentActiveForm = document.getElementById(activeFormId);
+
+            if(currentActiveBtn) currentActiveBtn.className = "admin-tab-btn flex items-center space-x-2 whitespace-nowrap py-2.5 px-3.5 border-b-2 font-semibold text-xs rounded-t-xl transition-all border-dynamic-primary text-dynamic-primary bg-dynamic-accent";
+            if(currentActiveForm) currentActiveForm.classList.remove("hidden");
+        }
+
+        // Event Listener Inisialisasi
+        document.addEventListener("DOMContentLoaded", function () {
+            // Pasang Tema
+            terapkanTema(currentTheme);
+
+            // Render Tampilan Awal
+            renderIdentitasUsaha();
+            renderKontakUsaha();
+            renderCeritaUsaha();
+            renderFakta();
+            renderKeunggulan();
+            renderProduk();
+
+            // Quick Theme Select Event
+            const quickThemeSelect = document.getElementById("quick-theme-select");
+            if (quickThemeSelect) {
+                quickThemeSelect.addEventListener("change", (e) => terapkanTema(e.target.value));
+            }
+            
+            const quickThemeSelectMobile = document.getElementById("quick-theme-select-mobile");
+            if (quickThemeSelectMobile) {
+                quickThemeSelectMobile.addEventListener("change", (e) => terapkanTema(e.target.value));
+            }
+
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById("menu-btn");
+            const mobileMenu = document.getElementById("mobile-menu");
+            if(menuBtn) menuBtn.addEventListener("click", () => mobileMenu.classList.toggle("hidden"));
+
+            // Modal Controls
+            const adminModal = document.getElementById("admin-modal");
+            const openAdminBtn = document.getElementById("open-admin-btn");
+            const openAdminMobile = document.getElementById("open-admin-btn-mobile");
+            const closeAdminBtn = document.getElementById("close-admin-btn");
+
+            const openModalFunc = () => adminModal.classList.remove("hidden");
+            openAdminBtn.addEventListener("click", openModalFunc);
+            openAdminMobile.addEventListener("click", openModalFunc);
+            closeAdminBtn.addEventListener("click", () => adminModal.classList.add("hidden"));
+
+            // Admin Auth
+            const adminAuthBox = document.getElementById("admin-auth-box");
+            const adminContentBox = document.getElementById("admin-content-box");
+            const adminLoginBtn = document.getElementById("admin-login-btn");
+            const pinInput = document.getElementById("admin-pin-input");
+            const pinError = document.getElementById("pin-error-msg");
+
+            adminLoginBtn.addEventListener("click", () => {
+                if(pinInput.value === currentAdminPIN) {
+                    adminAuthBox.classList.add("hidden");
+                    adminContentBox.classList.remove("hidden");
+                    pinError.classList.add("hidden");
+                    pinInput.value = "";
+                } else {
+                    pinError.classList.remove("hidden");
+                }
+            });
+
+            // Tab Click Events
+            document.getElementById("tab-identitas-btn").addEventListener("click", () => switchAdminTab('tab-identitas-btn', 'form-identitas-password'));
+            document.getElementById("tab-hero-btn").addEventListener("click", () => switchAdminTab('tab-hero-btn', 'form-foto-logo'));
+            document.getElementById("tab-fakta-btn").addEventListener("click", () => switchAdminTab('tab-fakta-btn', 'form-beranda-fakta'));
+            document.getElementById("tab-cerita-btn").addEventListener("click", () => switchAdminTab('tab-cerita-btn', 'form-tentang-usaha'));
+            document.getElementById("tab-kontak-btn").addEventListener("click", () => switchAdminTab('tab-kontak-btn', 'form-kontak-jam'));
+            document.getElementById("tab-produk-btn").addEventListener("click", () => switchAdminTab('tab-produk-btn', 'form-kelola-produk'));
+
+            // Submit Form Identitas & Password (Sesuai Permintaan Gambar)
+            document.getElementById("form-identitas-password").addEventListener("submit", (e) => {
+                e.preventDefault();
+                identitasUsaha.namaUsaha = document.getElementById("admin-input-nama-usaha").value.trim() || identitasUsaha.namaUsaha;
+                identitasUsaha.labelKecil = document.getElementById("admin-input-label-kecil").value.trim() || identitasUsaha.labelKecil;
+                identitasUsaha.slogan = document.getElementById("admin-input-slogan").value.trim() || identitasUsaha.slogan;
+
+                // Ganti Password Owner jika diisi
+                const newPass = document.getElementById("admin-input-password-baru").value.trim();
+                if(newPass !== "") {
+                    currentAdminPIN = newPass;
+                    localStorage.setItem('umkm_admin_pin', currentAdminPIN);
+                    document.getElementById("admin-input-password-baru").value = "";
+                }
+
+                // Ganti Tema
+                const selectedTheme = document.getElementById("admin-input-tema-default").value;
+                terapkanTema(selectedTheme);
+
+                localStorage.setItem('umkm_identitas', JSON.stringify(identitasUsaha));
+                renderIdentitasUsaha();
+                showToast("Identitas Usaha, Sandi & Tema berhasil diperbarui!");
+                adminModal.classList.add("hidden");
+            });
+
+            // Submit Form Foto & Logo
+            document.getElementById("form-foto-logo").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const lokasiVal = document.getElementById("admin-input-lokasi").value.trim();
+                if(lokasiVal) identitasUsaha.lokasi = lokasiVal;
+
+                const logoFileInput = document.getElementById("logo-file-input");
+                const logoUrlInput = document.getElementById("logo-url-input");
+                if(logoFileInput.files[0]) {
+                    identitasUsaha.logoUrl = await fileToBase64(logoFileInput.files[0]);
+                } else if(logoUrlInput.value) {
+                    identitasUsaha.logoUrl = logoUrlInput.value;
+                }
+
+                const heroFileInput = document.getElementById("hero-file-input");
+                const heroUrlInput = document.getElementById("hero-url-input");
+                if(heroFileInput.files[0]) {
+                    document.getElementById("hero-display-img").src = await fileToBase64(heroFileInput.files[0]);
+                } else if(heroUrlInput.value) {
+                    document.getElementById("hero-display-img").src = heroUrlInput.value;
+                }
+
+                localStorage.setItem('umkm_identitas', JSON.stringify(identitasUsaha));
+                renderIdentitasUsaha();
+                showToast("Foto & Logo berhasil diperbarui!");
+                adminModal.classList.add("hidden");
+            });
+
+            // Helper Base64
+            function fileToBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                });
+            }
+
+            // Submit Form Poin Fakta
+            document.getElementById("form-beranda-fakta").addEventListener("submit", (e) => {
+                e.preventDefault();
+                faktaList.forEach(f => {
+                    const tInput = document.getElementById(`fakta-judul-${f.id}`);
+                    const dInput = document.getElementById(`fakta-desc-${f.id}`);
+                    if(tInput && dInput) {
+                        f.judul = tInput.value;
+                        f.deskripsi = dInput.value;
+                    }
+                });
+                localStorage.setItem('umkm_fakta', JSON.stringify(faktaList));
+                renderFakta();
+                showToast("3 Poin Fakta berhasil diperbarui!");
+                adminModal.classList.add("hidden");
+            });
+
+            // Submit Form Tentang Usaha
+            document.getElementById("form-tentang-usaha").addEventListener("submit", (e) => {
+                e.preventDefault();
+                ceritaUsaha.teks = document.getElementById("admin-cerita-teks").value;
+                ceritaUsaha.tahun = document.getElementById("admin-stat-tahun").value;
+                ceritaUsaha.pemilik = document.getElementById("admin-stat-pemilik").value;
+                ceritaUsaha.karyawan = document.getElementById("admin-stat-karyawan").value;
+
+                localStorage.setItem('umkm_cerita', JSON.stringify(ceritaUsaha));
+                renderCeritaUsaha();
+                showToast("Cerita Usaha berhasil diperbarui!");
+                adminModal.classList.add("hidden");
+            });
+
+            // Submit Form Kontak & Jam Buka
+            document.getElementById("form-kontak-jam").addEventListener("submit", (e) => {
+                e.preventDefault();
+                kontakUsaha.alamat = document.getElementById("admin-alamat").value;
+                kontakUsaha.wa = document.getElementById("admin-wa").value;
+                kontakUsaha.medsos = document.getElementById("admin-medsos").value;
+                kontakUsaha.jamSenin = document.getElementById("admin-jambuka-senin").value;
+                kontakUsaha.jamMinggu = document.getElementById("admin-jambuka-minggu").value;
+                kontakUsaha.mapsUrl = document.getElementById("admin-maps-url").value;
+
+                localStorage.setItem('umkm_kontak', JSON.stringify(kontakUsaha));
+                renderKontakUsaha();
+                showToast("Kontak & Jam Operasional berhasil diperbarui!");
+                adminModal.classList.add("hidden");
+            });
+
+            // Upload Product Controls
+            document.getElementById("open-add-new-prod-btn").addEventListener("click", () => {
+                document.getElementById("upload-product-form").reset();
+                document.getElementById("prod-edit-id").value = "";
+                document.getElementById("upload-product-form").classList.remove("hidden");
+                document.getElementById("edit-indicator").classList.add("hidden");
+                document.getElementById("submit-prod-btn").innerText = "+ Tambah Produk Baru";
+            });
+
+            document.getElementById("cancel-edit-btn").addEventListener("click", () => {
+                document.getElementById("upload-product-form").classList.add("hidden");
+            });
+
+            document.getElementById("upload-product-form").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const editId = document.getElementById("prod-edit-id").value;
+                const prodFileInput = document.getElementById("prod-file-input");
+                const prodUrlInput = document.getElementById("prod-url-input");
+
+                let imageSrc = prodUrlInput.value;
+                if(prodFileInput.files[0]) {
+                    imageSrc = await fileToBase64(prodFileInput.files[0]);
+                }
+
+                if(editId) {
+                    const targetIndex = produkList.findIndex(p => p.id == editId);
+                    if(targetIndex !== -1) {
+                        const existing = produkList[targetIndex];
+                        produkList[targetIndex] = {
+                            ...existing,
+                            nama: document.getElementById("prod-name").value,
+                            berat: document.getElementById("prod-weight").value,
+                            harga: document.getElementById("prod-price").value,
+                            deskripsi: document.getElementById("prod-desc").value,
+                            foto: imageSrc || existing.foto
+                        };
+                    }
+                    showToast("Produk berhasil diperbarui!");
+                } else {
+                    const newProd = {
+                        id: Date.now(),
+                        nama: document.getElementById("prod-name").value,
+                        berat: document.getElementById("prod-weight").value,
+                        harga: document.getElementById("prod-price").value,
+                        deskripsi: document.getElementById("prod-desc").value,
+                        foto: imageSrc || "https://placehold.co/400x300/7A3E1D/ffffff?text=Produk+Makanan"
+                    };
+                    produkList.unshift(newProd);
+                    showToast("Produk baru berhasil ditambahkan!");
+                }
+
+                localStorage.setItem('umkm_produk', JSON.stringify(produkList));
+                renderProduk();
+                document.getElementById("upload-product-form").classList.add("hidden");
+            });
+        });
+    </script>
+</body>
+</html>
